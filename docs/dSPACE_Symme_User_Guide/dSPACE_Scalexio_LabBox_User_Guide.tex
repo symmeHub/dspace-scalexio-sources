@@ -1,0 +1,808 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Sullivan Business Report
+% LaTeX Template
+% Version 1.0 (May 5, 2022)
+%
+% This template originates from:
+% https://www.LaTeXTemplates.com
+%
+% Author:
+% Quentin Demouron (quentin.demouron@univ-smb.fr)
+%
+% License:
+% CC BY-NC-SA 4.0 (https://creativecommons.org/licenses/by-nc-sa/4.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%		CLASS, PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[a4paper,12pt]{CSSullivanBusinessReport}
+\usepackage{xcolor}
+
+%----------------------------------------------------------------------------------------
+%						REPORT INFORMATION
+%----------------------------------------------------------------------------------------
+
+\reporttitle{dSPACE Scalexio LabBox User Guide} 
+%\reportsubtitle{Hardware and software development}
+\reportauthors{Created by:\\\smallskip Quentin DEMOURON (quentin.demouron@univ-smb.fr)} 
+\reportdate{\today} 
+\rightheadercontent{\includegraphics[width=1.5cm]{logo_symme.png}} 
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%							TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\thispagestyle{empty}
+
+\begin{fullwidth}
+	\vspace*{-0.075\textheight}
+	\hfill\includegraphics[width=3cm]{logo_symme.png}
+	\vspace{0.15\textheight}
+	\parbox{0.9\fulltextwidth}{\fontsize{50pt}{52pt}\selectfont\raggedright\textbf{\reporttitle}\par}
+	\vspace{0.03\textheight}
+	{\LARGE\textit{\textbf{\reportsubtitle}}\par}
+	\vfill
+	{\Large\reportauthors\par}
+	\vfill\vfill\vfill
+	{\large\reportdate\par}
+\end{fullwidth}
+
+\newpage
+
+%----------------------------------------------------------------------------------------
+%					DISCLAIMER/COPYRIGHT PAGE
+%----------------------------------------------------------------------------------------
+
+\thispagestyle{empty}
+
+\begin{fullwidth}
+\footnotesize
+
+\subsection*{Disclaimer}
+This user guide has been created in order to facilitate the hardware and software implementation of laboratory experiments. It provides guidelines to the user and quick access to some of the most relevant informations but cannot substitute to the official dSPACE documentation.
+	
+\subsection*{Copyright}
+\textcopyright~[2025] [SYMME] 
+All rights reserved.
+	
+\subsection*{Contact}
+Quentin DEMOURON, quentin.demouron@univ-smb.fr\\
+Adrien MOREL, adrien.morel@univ-smb.fr\\
+Adrien BADEL, adrien.badel@univ-smb.fr
+\vfill
+	
+\subsubsection*{Changelog}
+\scriptsize % Reduce font size further
+\begin{tabular}{@{} L{0.05\linewidth} L{0.15\linewidth} L{0.6\linewidth} @{}}
+\toprule
+v1.0 & 2025-02-19 & Document creation.\\
+\bottomrule
+\end{tabular}
+\end{fullwidth}
+
+\newpage
+
+%----------------------------------------------------------------------------------------
+%						TABLE OF CONTENTS
+%----------------------------------------------------------------------------------------
+
+\begin{fullwidth} 
+\tableofcontents 
+\end{fullwidth} 
+
+\newpage
+
+%----------------------------------------------------------------------------------------
+%							SECTION 1
+%----------------------------------------------------------------------------------------
+\begin{fullwidth}
+
+\section{Getting Started}
+Most of the informations and illustrations presented in this section come from the dSPACE official documentation and remain the property of dSPACE GmbH.
+
+\subsection{Overview of the Scalexio LabBox 8 slots} 
+The following illustration shows the front panel of the Scalexio LabBox 8 slots as configured for the SYMME laboratory. 
+
+\begin{figure}[H]
+\includegraphics[width=.5\linewidth]{labbox.pdf}
+\caption{dSPACE Scalexio LabBox setup.}
+\label{fig:labbox}
+\end{figure}
+
+The allocation of the slots is the following : 
+\begin{itemize}
+\item Slots 0-1 : DS6001 processor board
+\item Slot 2 : DS2655 FPGA base board
+\item Slot 3 : DS2655M1 multi-I/O module
+\item Slots 4-6 : DS6101 multi-I/O board
+\item Slot 7 : DS6321 UART board
+\end{itemize}
+
+\newpage
+\subsection{DS6001 processor board} 
+\subsubsection{Front panel elements}
+
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{ds6001.pdf}
+\caption{DS6001 processor board front panel.}
+\label{fig:ds6001}
+\end{figure}
+
+The DS6001 processor board has the following elements on the front panel : 
+\begin{itemize}
+\item The \textbf{SYS} LED indicates the states of the boot and initialization processes of the board. Refer to \href{https://www.dspace.com/fr/fra/home/support/documentation.cfm?helpsetid=SCALEXIOHardwareInstallationConfiguration&externalid=Topic_48d62cee-b295-4c8d-9808-7454a0d67d50_--_}{\color{blue}LEDs of the DS6001 Processor Board}.
+
+\item The \textbf{APP} LED indicates the states of a simulation run. Refer to \href{https://www.dspace.com/fr/fra/home/support/documentation.cfm?helpsetid=SCALEXIOHardwareInstallationConfiguration&externalid=Topic_48d62cee-b295-4c8d-9808-7454a0d67d50_--_}{\color{blue}LEDs of the DS6001 Processor Board}.
+
+\item \textbf{USB Eject} button to safely remove a connected USB device from the \textbf{USB} port. 
+
+\item \textbf{USB} port to connect a USB mass storage device, for example to use it for data logging. 
+
+\item \textbf{RS232} connector. Refer to \href{https://www.dspace.com/fr/fra/home/support/documentation.cfm?helpsetid=SCALEXIOHardwareInstallationConfiguration&externalid=Topic_edd1c27a-58a9-4468-904a-352448a2c5bc_--_}{\color{blue}Pinout of the Connectors (DS6001)}.
+
+\item \textbf{Host PC} connector for establishing the Ethernet connection to the host PC.
+
+\item \textbf{Ethernet} connector for establishing an independent Ethernet connection to an external device. For more informations refer to \href{https://www.dspace.com/fr/fra/home/support/documentation.cfm?helpsetid=ConfigurationDeskIOFunctionImplementationGuide&externalid=Section_8b56347c-ce5a-48f9-a766-52c05aebe1c3_--_}{\color{blue}Ethernet Setup}.
+
+\item Two external \textbf{IOCNET} ports (additional SFP transceiver modules required).
+\end{itemize}
+
+\subsubsection{IP and MAC addresses}
+By default, the Ethernet port for the host PC connection of the Scalexio processing hardware is configured as follows : 
+
+\begin{itemize}
+\item IP address : 192.168.140.10
+\item Network mask : 255.255.255.0
+\end{itemize}
+
+The Scalexio LabBox can be accessed by a web interface by typing the IP address in a web browser. 
+
+\subsubsection{Pinout of the RS232 connector}
+The following illustration shows the pinout of the 9-pin, male \textbf{RS232} Sub-D connector. 
+
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{rs232pinout.pdf}
+\caption{RS232 connector pinout.}
+\label{fig:rs232pinout}
+\end{figure}
+
+\newpage
+\subsection{DS2655 FPGA base board}
+The following illustration shows the DS2655 FPGA base board.
+
+\begin{figure}[H]
+\includegraphics[width=.5\linewidth]{ds2655.pdf}
+\caption{DS2655 FPGA base board.}
+\label{fig:ds2655}
+\end{figure}
+
+The DS2655 FPGA Base Board provides a user-programmable FPGA platform. The board is designed for high-speed HIL applications that require the model to be computed, at least partly, on an FPGA.
+
+Because the simulation model is executed directly on the FPGA, it is possible to achieve very fast closed feedback loops with low turnaround times down to about 1 microsecond and below. You can program the FPGA by using the FPGA Programming Blockset, for example.
+
+To connect I/O to the DS2655 FPGA Base Board, one or more I/O modules are required. The DS2655 FPGA Base Board and its I/O modules can be installed in a SCALEXIO slot unit, SCALEXIO AutoBox, SCALEXIO LabBox, or the SCALEXIO External I/O Unit.
+
+\newpage
+\subsection{DS2655M1 multi-I/O module}
+The DS2655M1 Multi-I/O Module is a single-slot I/O module for a SCALEXIO FPGA base board. The module provides five parallel 14‑bit A/D channels, five parallel 14‑bit D/A channels, and ten bidirectional digital I/O channels.
+
+The following illustration shows a DS2655M1 Multi-I/O Module.
+\begin{figure}[H]
+\includegraphics[width=.5\linewidth]{ds2655m1.pdf}
+\caption{DS2655M1 multi-I/O module.}
+\label{fig:ds2655m1}
+\end{figure}
+
+The DS2655M1 Multi-I/O Module provides the following onboard I/O which can be accessed by an FPGA Base Board:
+
+\begin{itemize}
+\item 5 parallel 14‑bit A/D channels (differential) (\textit{Analog In 3} channel type)
+\item 5 parallel 14‑bit D/A channels (\textit{Analog Out 5} channel type)
+\item 10 digital I/O channels (each configurable as input or output, or as a bidirectional port) (\textit{Digital In/Out 2} channel type)
+\end{itemize}
+
+\subsubsection{Pinout of the DS2655M1 multi-I/O module}
+The DS2655M1 Multi-I/O Module has a 50-pin, female Sub-D connector for accessing the I/O signals. The connector is located on the module. 
+
+\newpage
+The following illustration shows the connector as seen from the front.
+\begin{figure}[H]
+\includegraphics[width=1.5\linewidth]{ds2655m1pinout.pdf}
+\caption{DS2655M1 50-pin Sub-D connector pinout.}
+\label{fig:ds2655m1pinout}
+\end{figure}
+
+\newpage
+\subsection{DS6101 multi-I/O board}
+The DS6101 Multi-I/O Board is a 3-slot SCALEXIO I/O board. It provides 69 I/O channels for voltage-related functions, including analog, digital, resistance, and special input/output groups, for use cases such as lambda probe simulation.
+
+The following illustration shows DS6101 multi-I/O board.
+
+\begin{figure}[H]
+\includegraphics[width=.5\linewidth]{ds6101.pdf}
+\caption{DS6101 multi-I/O board.}
+\label{fig:ds6101}
+\end{figure}
+
+\subsubsection{Channel types}
+The DS6101 Multi-I/O Board provides the following channel types for signal measurement:
+
+\begin{itemize}
+\item 10 ADC channels for analog voltage measurement (\textit{Analog In 4} channel type)
+
+\item 12 digital input channels for digital voltage measurement (\textit{Digital In 3} channel type)
+
+\item 10 multifunctional input channels for analog or digital voltage measurement (\textit{Flexible In 3} channel type)
+\end{itemize}
+
+The DS6101 Multi-I/O Board provides the following channels types for signal generation:
+
+\begin{itemize}
+\item 8 DAC channels with analog voltage output (\textit{Analog Out 6} channel type)
+
+\item 3 DAC channels with transformer-coupled voltage output (\textit{Analog Out 8} channel type)
+
+\item 4 DAC channels with voltage or current output (\textit{Analog Out 9} channel type), configurable as a current sink
+
+\item  14 digital output channels with digital voltage output fed from two switchable external high reference voltages (\textit{Digital Out 3} channel type), configurable as a low-side or high-side switch, or for push-pull mode.
+
+\item 6 RSIM channels for resistance simulation (\textit{Resistance Out 2} channel type)
+\end{itemize}
+
+The DS6101 Multi-I/O Board provides the following specific channels for simulating lambda probes: 
+
+\begin{itemize}
+\item 1 high-speed ADC channel (\textit{Analog In 5} channel type)
+
+\item 1 high-speed DAC channel with analog voltage or analog current output (\textit{Analog Out 7} channel type)
+\end{itemize}
+
+The high-speed channel can be combined with an RSIM channel for resistance simulation (\textit{Resistance Out 2} channel type).
+
+\subsubsection{Pinout of the DS6101 multi-I/O module}
+The DS6101 Multi-I/O Board has three 50-pin, female Sub-D connectors for accessing the I/O signals. The connectors are located on the module. The following illustration shows the P1 connector as seen from the front.
+
+\begin{figure}[H]
+\includegraphics[width=1.5\linewidth]{ds6101p1pinout.pdf}
+\caption{DS6101 P1 50-pin Sub-D connector pinout.}
+\label{fig:ds6101p1pinout}
+\end{figure}
+
+\newpage
+The following illustration shows the P2 connector as seen from the front.
+\begin{figure}[H]
+\includegraphics[width=1.5\linewidth]{ds6101p2pinout.pdf}
+\caption{DS6101 P2 50-pin Sub-D connector pinout.}
+\label{fig:ds6101p2pinout}
+\end{figure}
+
+\newpage
+The following illustration shows the P3 connector as seen from the front.
+\begin{figure}[H]
+\includegraphics[width=1.5\linewidth]{ds6101p3pinout.pdf}
+\caption{DS6101 P3 50-pin Sub-D connector pinout.}
+\label{fig:ds6101p3pinout}
+\end{figure}
+
+\newpage
+\subsection{DS6321 UART board}
+The DS6321 UART Board is a single-slot bus board for serial communication. It provides 4 independent UART channels, each supporting RS232, RS422, RS485, or K-Line at a time.
+
+The following illustration shows the DS6321 UART Board.
+\begin{figure}[H]
+\includegraphics[width=.5\linewidth]{ds6321.pdf}
+\caption{DS6321 UART board.}
+\label{fig:ds6321}
+\end{figure}
+
+\subsubsection{Channel types}
+The DS6321 UART Board provides four independent UART channels (of the \textit{UART 1} channel type):
+
+\begin{itemize}
+\item Each channel has a multiprotocol transceiver for RS232, RS422, and RS485, and a transceiver for K-Line.
+
+\item The relay state is kept during sleep mode by bistable relays.
+
+\item Support of RTC/CTS flow control for RS232, RS422, and RS485 (half duplex and full duplex).
+
+\item Switchable termination for RS422 and RS485 (configurable via software).
+
+\item Switchable termination for K-Line (configurable via software).
+\end{itemize}
+
+\subsubsection{Pinout of the DS6321 UART board}
+The DS6321 UART Board has a 50-pin, female Sub-D connector for accessing the I/O signals. The connector is located on the module. 
+
+\newpage
+The following illustration shows the connector as seen from the front.
+\begin{figure}[H]
+\includegraphics[width=1.5\linewidth]{ds6321pinout.pdf}
+\caption{DS6321 50-pin Sub-D connector pinout.}
+\label{fig:ds6321pinout}
+\end{figure}
+
+\newpage
+\subsection{dSPACE official documentation}
+For the official documentation of the boards embedded in the Scalexio LabBox, refer to the followings : 
+\begin{itemize}
+\item \href{https://www.dspace.com/fr/fra/home/support/documentation.cfm?helpsetid=SCALEXIOHardwareInstallationConfiguration&externalid=Section_86a960e8-cf8a-4c66-81ce-9a56d5e38925_--_&Language=en-us&Release=RLS2024-B}{\color{blue}DS6001 processor board}.
+
+\item \href{https://www.dspace.com/fr/fra/home/support/documentation.cfm?helpsetid=SCALEXIOHardwareInstallationConfiguration&externalid=Section_98355e41-afad-472e-82d4-06ea4349e632_--_&Language=en-us&Release=RLS2024-B}{\color{blue}DS2655 FPGA base board}.
+
+\item \href{https://www.dspace.com/fr/fra/home/support/documentation.cfm?helpsetid=SCALEXIOHardwareInstallationConfiguration&externalid=Section_407d943e-3789-4a53-a602-86acb83e9ab6_--_&Language=en-us&Release=RLS2024-B}{\color{blue}DS2655M1 multi-I/O module}.
+
+\item \href{https://www.dspace.com/fr/fra/home/support/documentation.cfm?helpsetid=SCALEXIOHardwareInstallationConfiguration&externalid=Section_9dca93fb-aca7-4c61-a60e-e0f39029344e_--_&Language=en-us&Release=RLS2024-B}{\color{blue}DS6101 multi-I/O board}.
+
+\item \href{https://www.dspace.com/fr/fra/home/support/documentation.cfm?helpsetid=SCALEXIOHardwareInstallationConfiguration&externalid=Section_ef0f65ae-9f5c-4ef0-a4ba-f5511717d85b_--_&Language=en-us&Release=RLS2024-B}{\color{blue}DS6321 UART board}.
+\end{itemize}
+
+%----------------------------------------------------------------------------------------
+%							SECTION 2
+%----------------------------------------------------------------------------------------
+\newpage
+\section{Creating your first experiment}
+\subsection{Model Interface Package for Simulink}
+The following illustration shows the dSPACE Scalexio LabBox workflow. 
+
+\begin{figure}[H]
+\includegraphics[width=1.5\linewidth]{workflow.pdf}
+\caption{dSPACE Scalexio LabBox workflow.}
+\label{fig:workflow}
+\end{figure}
+
+\newpage
+\subsection{Simulink Model}
+The first step to implement an experiment on the Scalexio LabBox is to create the Simulink model of the experiment. It is important to note that conversely to the previous dSPACE boards like the DS1103 using the RTI, the allocation of the hardware inputs and outputs will be done later in the ConfigurationDesk project. The following illustration shows an example of Simulink model containing a subsystem with 3 input ports and 2 output ports. 
+
+\begin{figure}[H]
+\includegraphics[width=1.5\linewidth]{simmodel.pdf}
+\caption{Example of Simulink model.}
+\label{fig:simmodel}
+\end{figure}
+
+\newpage
+Once the Simulink model completed, copy the matlab \textit{init.m} script in your experiment folder and run the script to initialize the \textit{st} variable corresponding to the simulation stoptime. Thereafter, go back to Simulink, open the model configuration parameters window (Ctrl+E) and under \textit{Solver details > fixed step size} enter the name of the stoptime variable initialized previously. 
+
+\begin{figure}[H]
+\includegraphics[width=1.5\linewidth]{simparam.pdf}
+\caption{Simulink model parameters.}
+\label{fig:simparam}
+\end{figure}
+
+\newpage
+Once the setup of the Simulink project completed, click on \textit{ConfigurationDesk > Create ConfigurationDesk project}. The ConfigurationDesk environment will open.
+
+\begin{figure}[H]
+\includegraphics[width=1.5\linewidth]{simcreate.pdf}
+\caption{Creation of ConfigurationDesk project from Simulink model.}
+\label{fig:simcreate}
+\end{figure}
+
+\newpage
+\subsection{ConfigurationDesk project}
+Once the ConfigurationDesk environment opened, the window will display the setup page. Your Simulink model has been automatically added to the ConfigurationDesk project and the final step you need to do is select the hardawre platform on which the application will be loaded. Thereafter click on \textit{Create}. Your new ConfigurationDesk project will open and your Simulink model input and output ports will be displayed under the model root. 
+
+\begin{figure}[H]
+\includegraphics[width=1.5\linewidth]{configdeskcreate.pdf}
+\caption{Creation of ConfigurationDesk project.}
+\label{fig:configdeskcreate}
+\end{figure}
+
+\newpage
+Under the \textit{Hardware} tab, you can access all the hardware in and out ports. Select the port you need, drag and drop to the model root and finally select the type of the port. Do the same for all the ports you have created in your Simulink model. 
+
+\begin{figure}[H]
+\includegraphics[width=1.5\linewidth]{configdeskdrag.pdf}
+\caption{Allocation of the hardware input and output ports.}
+\label{fig:configdeskdrag}
+\end{figure}
+
+\newpage
+Once all the ports allocated to the hardware, click on  \textit{propagate} to add the hardware ports to the Simulink model.
+
+\begin{figure}[H]
+\includegraphics[width=1.5\linewidth]{configdeskpropag.pdf}
+\caption{Propagation to the Simulink model.}
+\label{fig:configdeskpropag}
+\end{figure}
+
+\newpage
+Go back to Simulink and replace the Simulink in and out ports by the hardware allocated ports. 
+
+\begin{figure}[H]
+\includegraphics[width=1.5\linewidth]{simmodelupdate.pdf}
+\caption{Update of the Simulink model.}
+\label{fig:simmodelupdate}
+\end{figure}
+
+\begin{quotation}
+\textit{Note that if you modified you Simulink model after creating the ConfigurationDesk experiment, you can update the later by building the Simulink model.}
+\end{quotation}
+
+\newpage
+Go back to the ConfigurationDesk environment and build the real-time application. 
+
+\begin{figure}[H]
+\includegraphics[width=1.5\linewidth]{configdeskbuild.pdf}
+\caption{Build of the real-time application.}
+\label{fig:configdeskbuild}
+\end{figure}
+
+\newpage
+Wait until the end of the build process and finally load the application to the Scalexio LabBox platform. 
+
+\begin{figure}[H]
+\includegraphics[width=1.5\linewidth]{configdeskload.pdf}
+\caption{Load the real-time application to the Scalexio LabBox.}
+\label{fig:configdeskload}
+\end{figure}
+
+\end{fullwidth}
+\end{document}
+
+%----------------------------------------------------------------------------------------
+
+%%In diam libero, vulputate quis accumsan non, auctor in ipsum. Praesent cursus velit eget lacus sodales porta. Proin quis risus ut velit euismod scelerisque ut sed neque. Cras sagittis, dolor ac ullamcorper auctor, tortor dui facilisis diam, at sagittis nisi ipsum a neque. Nullam vel mattis nisi. Ut interdum ut diam at ornare. Nulla ultrices elit justo, vitae tristique massa vulputate sit amet.
+%%
+%%\nonumsidenote{This sidenote isn't numbered in the text or margin. This is useful for notes that apply anywhere on the page instead of one particular place.}Vestibulum erat felis, cursus vitae convallis ac, commodo eu nisi. Nulla facilisi. Mauris dignissim nisi felis, a mollis ex accumsan vel. Suspendisse bibendum vitae nibh in suscipit. Vestibulum et finibus eros. Nulla facilisi. Cras luctus aliquam finibus. In nec justo nec orci malesuada faucibus.
+%
+%\subsubsection{Subsubsection Title} % Third level section
+%
+%\begin{fullwidth} % Use the whole page width
+%	\textit{This is an example of a full width paragraph\ldots} Curabitur id placerat orci. Vivamus pulvinar augue ac feugiat blandit. Donec in ultricies mi. Nam eu lacus ac augue aliquet consectetur. Praesent dui risus, sollicitudin nec felis ut, posuere ultricies dolor. Sed massa nulla, dignissim eget sem sit amet, eleifend fermentum dui. Phasellus consequat sem vel turpis finibus, a aliquam risus malesuada.
+%\end{fullwidth}
+%
+%Maecenas consectetur metus at tellus finibus condimentum. Proin arcu lectus, ultrices non tincidunt et, tincidunt ut quam. Integer luctus posuere est, non maximus ante dignissim quis. Nunc a cursus erat. Curabitur suscipit nibh in tincidunt sagittis. Nam malesuada vestibulum quam id gravida. Proin ut dapibus velit. Vestibulum eget quam quis ipsum semper convallis. Duis consectetur nibh ac diam dignissim, id condimentum enim dictum. Nam aliquet ligula eu magna pellentesque, nec sagittis leo lobortis. Aenean tincidunt dignissim egestas. Morbi efficitur risus ante, id tincidunt odio pulvinar vitae.
+%
+%\paragraph{Paragraph Title} % Fourth level section
+%
+%Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam auctor mi risus, quis tempor libero hendrerit at. Duis hendrerit placerat quam et semper. Nam ultricies metus vehicula arcu viverra, vel ullamcorper justo elementum. Pellentesque vel mi ac lectus cursus posuere et nec ex.
+%
+%The section titles below show how multi-line section titles look at the 3 top levels.
+%
+%\section[Short version of long section title]{Fusce eleifend porttitor arcu, id accumsan elit pharetra eget} % Use the optional parameter to the \section command to specify a shorter version of the title for the table of contents
+%
+%Lorem ipsum dolor sit amet, consectetur adipiscing elit. \nonumsidenote[-2cm]{Section, subsection and subsubsection titles can span multiple lines, as shown here. Make sure to put a shorter version of these long titles in the optional parameter to the section commands so the title output to the table of contents is the short version.}
+%
+%\subsection[Short version of long subsection title]{Phasellus sit amet enim efficitur, aliquam nulla id, lacinia mauris viverra libero ac magna}
+%
+%Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+%
+%\subsubsection{In mi mauris, finibus non faucibus non, imperdiet nec leo. In erat arcu, tincidunt nec aliquam et, volutpat eget}
+%
+%Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+%
+%%----------------------------------------------------------------------------------------
+%%	FONTS
+%%----------------------------------------------------------------------------------------
+%
+%\section{Font Examples}
+%
+%\subsection{Font Sizes}
+%
+%{\tiny \textbackslash tiny} {\scriptsize \textbackslash scriptsize} {\footnotesize \textbackslash footnotesize} {\small \textbackslash small}\\
+%{\normalsize \textbackslash normalsize}\nonumsidenote[-1cm]{The default font size for the document is 12pt, represented by \textbackslash normalsize. The standard LaTeX font size commands modify this to be smaller or larger as needed.}\\
+%{\large \textbackslash large} {\Large \textbackslash Large} {\LARGE \textbackslash LARGE} {\huge \textbackslash huge} {\Huge \textbackslash Huge}
+%
+%\subsection{Font Families}
+%
+%\textsf{IBM Plex Sans Text}\nonumsidenote{The sans family is the default, as is standard in the business world. Use the serif family to accentuate text, such as for quotations. The mono family is best used where it's important that all characters are the same width, such as for numbers in a table or for code.}
+%
+%\textrm{IBM Plex Serif Text}
+%
+%\texttt{IBM Plex Mono Text}
+%
+%\subsection{Font Weights}
+%
+%\textel{ExtraLight} \textl{Light} Normal \textsb{SemiBold} \textbf{Bold}
+%
+%\subsection{Condensed Fonts}
+%
+%Plex Sans Normal\nonumsidenote{Condensed fonts can be useful if horizontal space is at a premium. You might want to use the condensed font in a wide table.}
+%
+%{\plexsanscondensed Plex Sans Condensed}
+%
+%%----------------------------------------------------------------------------------------
+%%	QUOTATIONS
+%%----------------------------------------------------------------------------------------
+%
+%\section{Quotations}
+%
+%Proin mollis urna posuere fringilla. Curabitur finibus, neque vitae vestibulum vestibulum, dolor sapien tincidunt augue, vel porta mauris metus nec mauris. Integer erat magna, porta id erat sed, lacinia volutpat erat. Nulla fermentum tellus arcu, eu iaculis ipsum malesuada aliquam. Duis et lacus maximus, consectetur metus et, eleifend arcu. Vestibulum condimentum diam vitae diam tincidunt viverra.\sidenotequote[-1cm]{\textbf{\LARGE ``}Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor arcu luctus, imperdiet urna iaculis, mattis eros. Pellentesque iaculis odio vel nisl ullamcorper, nec faucibus ipsum molestie.\textbf{''}\\[4pt]\hfill--- John Smith, 1972} % Example margin quotation using the \sidenotequote custom command
+%
+%\begin{quote}
+%	\textbf{\LARGE ``}Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor arcu luctus, imperdiet urna iaculis, mattis eros. Pellentesque iaculis odio vel nisl ullamcorper, nec faucibus ipsum molestie. Sed dictum nisl non aliquet porttitor. Etiam vulputate arcu dignissim, finibus sem et, viverra nisl. Aenean luctus congue massa, ut laoreet metus ornare in.\textbf{''}
+%	
+%	\hfill--- John Smith, 1972
+%\end{quote}
+%
+%Suspendisse tempus odio sit amet volutpat suscipit. Pellentesque ornare libero lacus, non fringilla dolor placerat in. Ut maximus ullamcorper lectus, a pharetra mi sagittis aliquet. Scelerisque augue sed mi fringilla, vel dapibus ligula finibus. Sed ornare velit sem, ac venenatis velit dignissim. Vestibulum ultrices mi at tincidunt condimentum.
+%
+%%----------------------------------------------------------------------------------------
+%%	TABLES
+%%----------------------------------------------------------------------------------------
+%
+%\section{Table Examples}
+%
+%This statement automatically references the table below using its label: Table \ref{tab:example}.
+%
+%%------------------------------------------------
+%
+%\begin{margintable} % Use the margintable environment for tables to be output to the margin
+%	\footnotesize % Reduce the font size in the table as space is at a premium
+%	\caption{Margin table caption.}
+%	\begin{tabular}{L{0.22\linewidth} C{0.22\linewidth} R{0.25\linewidth}}
+%		\toprule
+%		\textbf{Year} & \textbf{Qtr.} & \textbf{Perf.}\\
+%		\midrule
+%		20XX & Q1 & 0.5\%\\
+%		20XX & Q2 & 26.5\%\\
+%		20XX & Q1 & 35.4\%\\
+%		20XX & Q4 & 41.3\%\\
+%		\bottomrule
+%	\end{tabular}
+%\end{margintable}
+%
+%%------------------------------------------------
+%
+%\begin{table}[H] % [H] forces the table to be output where it is defined in the code (it suppresses floating)
+%	\caption{Text block table caption.}
+%	\begin{tabular}{L{0.35\linewidth} L{0.38\linewidth} L{0.16\linewidth}}
+%		\toprule
+%		\textbf{Prospect} & \textbf{Industry} & \textbf{Revenue} \\
+%		\midrule
+%		Gerlach Inc & Business Development & \$3M\\
+%		Doyle and Sons & Law & \$1M\\
+%		Heathcote Group & Consulting & \$12M\\
+%		Goyette Inc & Advertising & \$5M\\
+%		Holzdeppe GmbH & Manufacturing & \$23M\\
+%		Bienias AG & Accounting & \$2.5M\\
+%		\bottomrule
+%	\end{tabular}
+%	\label{tab:example}
+%\end{table}
+%
+%%------------------------------------------------
+%
+%\begin{table*} % Use the table* environment for full width tables
+%	\caption{Full width table caption.}
+%	\begin{tabular}{C{0.03\linewidth} L{0.25\linewidth} L{0.27\linewidth} L{0.16\linewidth} L{0.16\linewidth}}
+%		\toprule
+%		\textit{\#} & \textbf{Prospect} & \textbf{Industry} & \textbf{Revenue} & \textbf{Employees} \\
+%		\midrule
+%		\textit{1} & Gerlach Inc & Business Development & \$3M & 65\\
+%		\textit{2} & Doyle and Sons & Law & \$1M & 15\\
+%		\textit{3} & Heathcote Group & Consulting & \$12M & 250\\
+%		\textit{4} & Goyette Inc & Advertising & \$5M & 100\\
+%		\textit{5} & Holzdeppe GmbH & Manufacturing & \$23M & 75\\
+%		\textit{6} & Bienias AG & Accounting & \$2.5M & 40\\
+%		\bottomrule
+%	\end{tabular}
+%\end{table*}
+%
+%%----------------------------------------------------------------------------------------
+%%	FIGURES
+%%----------------------------------------------------------------------------------------
+%
+%\section{Figure Examples}
+%
+%This statement automatically references the figure below using its label: Figure \ref{fig:example}.
+%
+%%------------------------------------------------
+%
+%%\begin{marginfigure} % Use the marginfigure environment for figures to be output to the margin
+%%	\includegraphics[width=\linewidth]{placeholder.jpg}
+%%	\caption{Margin figure caption.}
+%%\end{marginfigure}
+%
+%%------------------------------------------------
+%
+%%\begin{figure}[H] % [H] forces the figure to be output where it is defined in the code (it suppresses floating)
+%%	\includegraphics[width=\linewidth]{ARR.pdf}
+%%	\caption{Text block figure caption.}
+%%	\label{fig:example} % Label for referencing this figure in the text automatically
+%%\end{figure}
+%
+%%------------------------------------------------
+%
+%%\begin{figure*} % Use the figure* environment for full width figures
+%%	\includegraphics[width=\linewidth]{ARR.pdf}
+%%	\caption{Full width figure caption.}
+%%\end{figure*}
+%
+%%----------------------------------------------------------------------------------------
+%%	LISTS
+%%----------------------------------------------------------------------------------------
+%
+%\section{List Examples}
+%
+%\subsection{Bullet Point List}
+%
+%\nonumsidenote{Bullet point lists can also be created in the margin. For these, we can remove the usual left margin to increase the available horizontal space:\\\medskip \begin{itemize}[leftmargin=*]\item Bullet item one. \item Bullet item two. \item Bullet item three.\end{itemize}}Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor arcu luctus, imperdiet urna iaculis, mattis eros. Pellentesque iaculis odio vel nisl ullamcorper, nec faucibus ipsum molestie. Sed dictum nisl non aliquet porttitor.
+%
+%\begin{itemize}
+%	\item First bullet point item
+%	\begin{itemize}
+%		\item First indented bullet point item
+%		\item Second indented bullet point item
+%		\begin{itemize}
+%			\item First second-level indented bullet point item
+%			\item Second second-level indented bullet point item
+%		\end{itemize}
+%		\item Third indented bullet point item
+%	\end{itemize}
+%	\item Second bullet point item
+%	\item Third bullet point item
+%\end{itemize}
+%
+%Etiam vulputate arcu dignissim, finibus sem et, viverra nisl. Aenean luctus congue massa, ut laoreet metus ornare in. Nunc fermentum nisi imperdiet lectus tincidunt vestibulum at ac elit. Nulla mattis nisl eu malesuada suscipit.
+%
+%%------------------------------------------------
+%
+%\subsection{Numbered List}
+%
+%\nonumsidenote[-2.5cm]{Numbered lists can also be created in the margin. For these, we can remove the usual left margin to increase the available horizontal space:\\\medskip \begin{enumerate}[leftmargin=*]\item Numbered item one. \item Numbered item two. \item Numbered item three.\end{enumerate}}Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor arcu luctus, imperdiet urna iaculis, mattis eros. Pellentesque iaculis odio vel nisl ullamcorper, nec faucibus ipsum molestie. Sed dictum nisl non aliquet porttitor.
+%
+%\begin{enumerate}
+%	\item First numbered item
+%	\begin{enumerate}
+%		\item First indented numbered item
+%		\item Second indented numbered item
+%		\begin{enumerate}
+%			\item First second-level indented numbered item
+%			\item Second second-level indented numbered item
+%		\end{enumerate}
+%		\item Third indented numbered item
+%	\end{enumerate}
+%	\item Second numbered item
+%	\item Third numbered item
+%\end{enumerate}
+%
+%Etiam vulputate arcu dignissim, finibus sem et, viverra nisl. Aenean luctus congue massa, ut laoreet metus ornare in. Nunc fermentum nisi imperdiet lectus tincidunt vestibulum at ac elit. Nulla mattis nisl eu malesuada suscipit.
+%
+%%------------------------------------------------
+%
+%\subsection{Description List}
+%
+%\nonumsidenote{Description lists can also be created in the margin:\\\medskip \begin{description}\item[A1] Description item one. \item[B1] Description item two. \item[C1] Description item three.\end{description}}Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor arcu luctus, imperdiet urna iaculis, mattis eros. Pellentesque iaculis odio vel nisl ullamcorper, nec faucibus ipsum molestie. Sed dictum nisl non aliquet porttitor.
+%
+%\begin{description}
+%	\item[Item One] Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor arcu luctus, imperdiet urna iaculis, mattis eros. Pellentesque iaculis odio vel nisl ullamcorper, nec faucibus ipsum molestie.
+%	\item[Item Two] Sed dictum nisl non aliquet porttitor.
+%	\begin{description}
+%		\item[Subitem] Maecenas consectetur metus at tellus finibus condimentum. Proin arcu lectus, ultrices non tincidunt et, tincidunt ut quam. Integer luctus posuere est, non maximus ante dignissim quis.
+%		\begin{description}
+%			\item[Subsubitem] Maecenas consectetur metus at tellus finibus condimentum. Proin arcu lectus, ultrices non tincidunt et, tincidunt ut quam. Integer luctus posuere est, non maximus ante dignissim quis.
+%	\end{description}
+%	\end{description}
+%	\item[Item Three] Etiam vulputate arcu dignissim, finibus sem et, viverra nisl. Aenean luctus congue massa, ut laoreet metus ornare in. Nunc fermentum nisi imperdiet lectus tincidunt vestibulum at ac elit. Nulla mattis nisl eu malesuada suscipit.
+%\end{description}
+%
+%Etiam vulputate arcu dignissim, finibus sem et, viverra nisl. Aenean luctus congue massa, ut laoreet metus ornare in.
+%
+%%----------------------------------------------------------------------------------------
+%%	REFERENCING CITATIONS
+%%----------------------------------------------------------------------------------------
+%
+%\section{Referencing Citations}
+%
+%This statement requires citation \autocite{Smith:2024jd}.
+%
+%This statement requires multiple citations \autocite{Smith:2024jd, Smith:2023qr}.
+%
+%This short citation is in the margin\sidecite{Smith:2023qr}.
+%
+%This long citation is in the margin\fullsidecite{Smith:2024jd}.
+%
+%This statement has an in-text citation: \textcite{Smith:2024jd}.
+%
+%%----------------------------------------------------------------------------------------
+%%	LINKS
+%%----------------------------------------------------------------------------------------
+%
+%\section{Link Examples}
+%
+%This is a URL link: \href{https://www.duckduckgo.com}{DuckDuckGo}.\nonumsidenote{Links can be clicked in the PDF to navigate to the linked website or email address.}
+%
+%This is a email link: \href{mailto:example@example.com}{example@example.com}.
+%
+%This is a monospaced URL link: \url{https://duckduckgo.com}.
+%
+%%----------------------------------------------------------------------------------------
+%%	EQUATIONS
+%%----------------------------------------------------------------------------------------
+%
+%\section{Equation}
+%
+%\begin{equation}
+%	\cos^3 \theta =\frac{1}{4}\cos\theta+\frac{3}{4}\cos 3\theta
+%	\label{eq:example}
+%\end{equation}
+%
+%This statement automatically references the equation above using its label: Equation \ref{eq:example}.
+%
+%%----------------------------------------------------------------------------------------
+%%	INTERNATIONAL SUPPORT
+%%----------------------------------------------------------------------------------------
+%
+%\section{International Support}
+%
+%àáâäãåèéêëìíîïòóôöõøùúûüÿýñçčšž\nonumsidenote{Plex is a very high quality typeface produced by IBM. It includes extensive international support and characters.}
+%
+%ÀÁÂÄÃÅÈÉÊËÌÍÎÏÒÓÔÖÕØÙÚÛÜŸÝÑ
+%
+%ßÇŒÆČŠŽ
+%
+%%----------------------------------------------------------------------------------------
+%%	CODE
+%%----------------------------------------------------------------------------------------
+%
+%\section{Displaying Code}
+%
+%The block below is a code listing. It displays code in an easy to use way with line numbers for quick reference to specific parts of the code.
+%
+%\begin{lstlisting}
+%{
+%	"city": [
+%		{
+%			"id": 1,
+%			"name": "Toronto",
+%			"country": "Canada",
+%			"population": 6200000
+%		},
+%		{
+%			"id": 2,
+%			"name": "New York",
+%			"country": "United States of America",
+%			"population": 8800000
+%		}
+%	]
+%}
+%\end{lstlisting}
+%
+%%----------------------------------------------------------------------------------------
+%%	 REFERENCES/BIBLIOGRAPHY
+%%----------------------------------------------------------------------------------------
+%
+%%\newpage
+%%
+%%\addcontentsline{toc}{section}{Reference List} % Add the bibliography to the table of contents
+%%
+%%\begin{twothirdswidth} % Content in this environment to be at two-thirds of the whole page width
+%%	\printbibliography[title=Reference List] % Output the bibliography with a custom section title
+%%\end{twothirdswidth}
+%
+%%----------------------------------------------------------------------------------------
+%%	APPENDICES
+%%----------------------------------------------------------------------------------------
+%
+%\newpage
+%
+%\section*{Appendices}
+%
+%\begin{appendices}
+%
+%\section{Appendix Section}
+%
+%Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam auctor mi risus, quis tempor libero hendrerit at. Duis hendrerit placerat quam et semper. Nam ultricies metus vehicula arcu viverra, vel ullamcorper justo elementum. Pellentesque vel mi ac lectus cursus posuere et nec ex. Fusce quis mauris egestas lacus commodo venenatis. Ut at arcu lectus. Donec et urna nunc. Morbi eu nisl cursus sapien eleifend tincidunt quis quis est. Donec ut orci ex. Praesent ligula enim, ullamcorper non lorem a, ultrices volutpat dolor. Nullam at imperdiet urna. Pellentesque nec velit eget euismod pretium.
+%
+%\section{Appendix Section}
+%
+%Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam auctor mi risus, quis tempor libero hendrerit at. Duis hendrerit placerat quam et semper. Nam ultricies metus vehicula arcu viverra, vel ullamcorper justo elementum. Pellentesque vel mi ac lectus cursus posuere et nec ex. Fusce quis mauris egestas lacus commodo venenatis. Ut at arcu lectus. Donec et urna nunc. Morbi eu nisl cursus sapien eleifend tincidunt quis quis est. Donec ut orci ex. Praesent ligula enim, ullamcorper non lorem a, ultrices volutpat dolor. Nullam at imperdiet urna. Pellentesque nec velit eget euismod pretium.
+%
+%\section{Appendix Section}
+%
+%Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam auctor mi risus, quis tempor libero hendrerit at. Duis hendrerit placerat quam et semper. Nam ultricies metus vehicula arcu viverra, vel ullamcorper justo elementum. Pellentesque vel mi ac lectus cursus posuere et nec ex. Fusce quis mauris egestas lacus commodo venenatis. Ut at arcu lectus. Donec et urna nunc. Morbi eu nisl cursus sapien eleifend tincidunt quis quis est. Donec ut orci ex. Praesent ligula enim, ullamcorper non lorem a, ultrices volutpat dolor. Nullam at imperdiet urna. Pellentesque nec velit eget euismod pretium.
+%
+%\end{appendices}
+%
+%%----------------------------------------------------------------------------------------
+%
+%\end{document}
